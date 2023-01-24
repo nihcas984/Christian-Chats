@@ -1,0 +1,19 @@
+document.querySelector('form').addEventListener('submit', function(event) {
+    event.preventDefault();
+    var name = document.querySelector('#name').value;
+    var email = document.querySelector('#email').value;
+    var feedback = document.querySelector('#feedback').value;
+    // Send feedback to server using fetch()
+    fetch('/feedback', {
+        method: 'POST',
+        body: JSON.stringify({name: name, email: email, feedback: feedback}),
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    }).then(function(response) {
+        return response.json();
+    }).then(function(data) {
+        // Show message to user
+        alert('Thank you for your feedback, ' + data.name + '!');
+    });
+});
